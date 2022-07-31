@@ -1,22 +1,42 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import createPersistedState from 'vuex-persistedstate'
+import { getUserInfoAPI } from '@/api'
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    token: ''
+    token: '',
+    userInfo: {}
   },
   getters: {
+    // 多种写法
+    // username(state) {
+    //   return state.userInfo.username
+    // }
+    // username: state => {
+    //   return state.userInfo.username
+    // }
+    username: state => state.userInfo.data.username,
+    nickname: state => state.userInfo.data.nickname,
+    user_pic: state => state.userInfo.data.user_pic
+
   },
   mutations: {
     // 保存token
     updateToken(state, value) {
       state.token = value
+    },
+    updateUserInfo(state, value) {
+      state.userInfo = value
     }
   },
   actions: {
+    async getUserInfoActions(store) {
+      const { data: res } = await getUserInfoAPI()
+      store.commit('updateUserInfo',res.data)
+    }
   },
   modules: {
   },

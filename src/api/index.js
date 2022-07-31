@@ -1,8 +1,5 @@
-/**
- *
- */
-
 import request from '@/utils/request'
+import store from '@/store'
 // 导出
 export const registerAPI = ({ username, password, repassword}) => {
   // promise对象 return Promise对象
@@ -33,6 +30,20 @@ export const loginAPI = ({ username, password}) => {
     data: {
       username,
       password
+    }
+  })
+}
+
+/**
+ * 获取用户信息API
+ * @returns {*}
+ */
+export const getUserInfoAPI = () => {
+  return request({
+    url: '/my/userinfo',
+    // method不写默认就是get请求
+    headers: {
+      Authorization: store.state.token
     }
   })
 }

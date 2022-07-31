@@ -28,7 +28,52 @@
     </el-header>
     <el-container>
       <!-- 侧边栏区域 -->
-      <el-aside width="200px">Aside</el-aside>
+      <el-aside width="200px">
+        <div class="user-box">
+          <img :src="user_pic" alt="" v-if="user_pic" />
+          <img src="../../assets/images/logo.png" alt="" v-else />
+          <span>欢迎 {{ nickname || username }}</span>
+        </div>
+        <!-- 左侧导航菜单 -->
+        <el-menu
+          default-active="/home"
+          class="el-menu-vertical-demo"
+          background-color="#23262E"
+          text-color="#fff"
+          active-text-color="#409EFF"
+          unique-opened
+        >
+          <!-- 不包含子菜单的“一级菜单” -->
+          <el-menu-item index="/home"
+          ><i class="el-icon-s-home"></i>首页</el-menu-item
+          >
+          <!-- 包含子菜单的“一级菜单” -->
+          <el-submenu index="/topic">
+            <template slot="title">
+              <i class="el-icon-s-order"></i>
+              <span>文章管理</span>
+            </template>
+            <el-menu-item index="/topic1"
+            ><i class="el-icon-star-on"></i>文章一</el-menu-item
+            >
+            <el-menu-item index="/topic2"
+            ><i class="el-icon-star-on"></i>文章二</el-menu-item
+            >
+          </el-submenu>
+          <el-submenu index="/myself">
+            <template slot="title">
+              <i class="el-icon-user-solid"></i>
+              <span>个人管理</span>
+            </template>
+            <el-menu-item index="/myself1"
+            ><i class="el-icon-star-on"></i>文章一</el-menu-item
+            >
+            <el-menu-item index="/myself2"
+            ><i class="el-icon-star-on"></i>文章二</el-menu-item
+            >
+          </el-submenu>
+        </el-menu>
+      </el-aside>
       <el-container>
         <!-- 页面主体区域 -->
         <el-main>
@@ -42,8 +87,12 @@
 </template>
 
 <script>
+  import { mapGetters } from 'vuex'
   export default {
     name: 'my-layout',
+    computed: {
+      ...mapGetters(['username','nickname','user_pic'])
+    },
     data () {
       return {}
     },
@@ -55,7 +104,8 @@
           type: 'warning'
         }).then(() => {
           //window.sessionStorage.clear()
-          this.$store.commit('updateToken','')
+          this.$store.commit('updateToken', '')
+          this.$store.commit('updateUserInfo', {})
           this.$router.push('/login')
         }).catch(() => {
           this.$message({
@@ -63,7 +113,8 @@
             message: '已取消'
           })
         })
-      }
+      },
+
     }
   }
 
@@ -113,5 +164,35 @@
     line-height: 60px;
     margin-left: 20px;
     font-size: 25px;
+  }
+
+  .user-box {
+    height: 70px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-top: 1px solid #000;
+    border-bottom: 1px solid #000;
+    user-select: none;
+    img {
+      width: 35px;
+      height: 35px;
+      border-radius: 50%;
+      background-color: #fff;
+      margin-right: 15px;
+      object-fit: cover;
+    }
+    span {
+      color: white;
+      font-size: 12px;
+    }
+    // 侧边栏菜单的样式
+    .el-aside {
+      .el-submenu,
+      .el-menu-item {
+        width: 200px;
+        user-select: none;
+      }
+    }
   }
 </style>
