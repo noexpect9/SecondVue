@@ -2,7 +2,7 @@
   <div class="reg-container">
     <div class="reg-box">
       <div class="title-box"></div>
-      <el-form ref="from" :model="regFrom" :rules="ruleFrom">
+      <el-form ref="regRef" :model="regFrom" :rules="regRules">
         <el-form-item prop="username">
           <el-input type="text" placeholder="请输入用户名" v-model="regFrom.username"></el-input>
         </el-form-item>
@@ -14,7 +14,7 @@
         </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="registerFn" class="btn-reg">注册</el-button>
-          <el-link type="info" class="login">登陆></el-link>
+          <el-link type="info" class="login" @click="login">登陆></el-link>
         </el-form-item>
       </el-form>
     </div>
@@ -22,6 +22,8 @@
 </template>
 
 <script>
+  import { registerAPI } from '@/api'
+
   export default {
     name: 'index',
     data() {
@@ -38,7 +40,7 @@
           password: '',
           repassword: ''
         },
-        ruleFrom: {
+        regRules: {
           username: [
             { required: true, message: '请输入用户名', trigger: 'blur'},
             { pattern: /^[a-zA-Z0-9_-]{4,16}$/, message: '4到16位(字母，数字，下划线，减号)', trigger: 'blur'}
@@ -55,15 +57,29 @@
             { required: true, message: '请再次输入密码', trigger: 'blur' },
             { validator: samePwd, trigger: 'blur' }
           ]
-
         }
       }
     },
     methods: {
       registerFn() {
-
+        //校验
+        this.$refs.regRef.validate(async valid => {
+          if(valid) {
+            const { data: res } = await registerAPI(this.regFrom)
+            if(res.code !== 0) {
+              return this.$message.error(res.message)
+            }
+            this.$message.success(res.message)
+            this.$router.push('/login')
+          } else {
+            return false
+          }
+        })
+      },
+      login() {
+        this.$router.push('/login')
       }
-    }
+    },
   }
 </script>
 
