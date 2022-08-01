@@ -30,8 +30,8 @@
       <!-- 侧边栏区域 -->
       <el-aside width="200px">
         <div class="user-box">
-          <img :src="user_pic" alt="" v-if="user_pic" />
-          <img src="../../assets/images/logo.png" alt="" v-else />
+          <img :src="user_pic" alt="" v-if="user_pic"/>
+          <img src="../../assets/images/logo.png" alt="" v-else/>
           <span>欢迎 {{ nickname || username }}</span>
         </div>
         <!-- 左侧导航菜单 -->
@@ -42,36 +42,27 @@
           text-color="#fff"
           active-text-color="#409EFF"
           unique-opened
+          router
         >
-          <!-- 不包含子菜单的“一级菜单” -->
-          <el-menu-item index="/home"
-          ><i class="el-icon-s-home"></i>首页</el-menu-item
-          >
-          <!-- 包含子菜单的“一级菜单” -->
-          <el-submenu index="/topic">
-            <template slot="title">
-              <i class="el-icon-s-order"></i>
-              <span>文章管理</span>
-            </template>
-            <el-menu-item index="/topic1"
-            ><i class="el-icon-star-on"></i>文章一</el-menu-item
+          <template v-for="item in menusList">
+            <!-- 不包含子菜单的“一级菜单” -->
+            <el-menu-item v-if="!item.children" :index="item.indexPath" :key="item.indexPath"
+            ><i class="el-icon-s-home"></i>{{item.title}}
+            </el-menu-item
             >
-            <el-menu-item index="/topic2"
-            ><i class="el-icon-star-on"></i>文章二</el-menu-item
-            >
-          </el-submenu>
-          <el-submenu index="/myself">
-            <template slot="title">
-              <i class="el-icon-user-solid"></i>
-              <span>个人管理</span>
-            </template>
-            <el-menu-item index="/myself1"
-            ><i class="el-icon-star-on"></i>文章一</el-menu-item
-            >
-            <el-menu-item index="/myself2"
-            ><i class="el-icon-star-on"></i>文章二</el-menu-item
-            >
-          </el-submenu>
+            <!-- 包含子菜单的“一级菜单” -->
+            <el-submenu v-else :index="item.indexPath" :key="item.indexPath">
+              <template slot="title">
+                <i :class="item.icon"></i>
+                <span>{{item.title}}</span>
+              </template>
+              <el-menu-item v-for="items in item.children" :index="items.indexPath" :key="items.indexPath"
+              ><i :class="items.icon"></i>
+                <span>{{items.title}}</span>
+              </el-menu-item
+              >
+            </el-submenu>
+          </template>
         </el-menu>
       </el-aside>
       <el-container>
@@ -88,13 +79,18 @@
 
 <script>
   import { mapGetters } from 'vuex'
+  import { getMenusListAPI } from '@/api'
+
   export default {
     name: 'my-layout',
     computed: {
-      ...mapGetters(['username','nickname','user_pic'])
+      ...mapGetters(['username', 'nickname', 'user_pic'])
     },
     data () {
-      return {}
+      return {
+        // 保存侧边栏数据
+        menusList: []
+      }
     },
     methods: {
       logoOut () {
@@ -114,7 +110,14 @@
           })
         })
       },
-
+      async getMenusList () {
+        const { data: res } = await getMenusListAPI()
+        console.log(res)
+        this.menusList = res.data
+      },
+    },
+    created () {
+      this.getMenusList()
     }
   }
 
@@ -174,6 +177,7 @@
     border-top: 1px solid #000;
     border-bottom: 1px solid #000;
     user-select: none;
+
     img {
       width: 35px;
       height: 35px;
@@ -182,10 +186,12 @@
       margin-right: 15px;
       object-fit: cover;
     }
+
     span {
       color: white;
       font-size: 12px;
     }
+
     // 侧边栏菜单的样式
     .el-aside {
       .el-submenu,

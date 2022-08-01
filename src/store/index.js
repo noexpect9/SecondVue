@@ -10,19 +10,6 @@ export default new Vuex.Store({
     token: '',
     userInfo: {}
   },
-  getters: {
-    // 多种写法
-    // username(state) {
-    //   return state.userInfo.username
-    // }
-    // username: state => {
-    //   return state.userInfo.username
-    // }
-    username: state => state.userInfo.data.username,
-    nickname: state => state.userInfo.data.nickname,
-    user_pic: state => state.userInfo.data.user_pic
-
-  },
   mutations: {
     // 保存token
     updateToken(state, value) {
@@ -37,6 +24,19 @@ export default new Vuex.Store({
       const { data: res } = await getUserInfoAPI()
       store.commit('updateUserInfo',res.data)
     }
+  },
+  getters: {
+    // 多种写法
+    // username(state) {
+    //   return state.userInfo.username
+    // }
+    // username: state => {
+    //   return state.userInfo.username
+    // }
+    username: state => state.userInfo.username,
+    nickname: state => state.userInfo.nickname,
+    user_pic: state => state.userInfo.user_pic
+
   },
   modules: {
   },

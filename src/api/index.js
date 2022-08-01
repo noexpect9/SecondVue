@@ -1,9 +1,13 @@
 import request from '@/utils/request'
-import store from '@/store'
-// 导出
-export const registerAPI = ({ username, password, repassword}) => {
+
+/**
+ *
+ * @param {*} param0
+ * @returns
+ */
+export const registerAPI = ({ username, password, repassword }) => {
   // promise对象 return Promise对象
-    return request({
+  return request({
     url: '/api/reg',
     method: 'POST',
     // axios传参params,data
@@ -23,7 +27,7 @@ export const registerAPI = ({ username, password, repassword}) => {
  * @param password
  * @returns {AxiosPromise}
  */
-export const loginAPI = ({ username, password}) => {
+export const loginAPI = ({ username, password }) => {
   return request({
     url: '/api/login',
     method: 'POST',
@@ -42,9 +46,16 @@ export const getUserInfoAPI = () => {
   return request({
     url: '/my/userinfo',
     // method不写默认就是get请求
-    headers: {
-      Authorization: store.state.token
-    }
+  })
+}
+
+/**
+ * 获取侧边栏API
+ * @returns {AxiosPromise}
+ */
+export const getMenusListAPI = () => {
+  return request({
+    url: '/my/menus',
   })
 }
 
