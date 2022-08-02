@@ -13,8 +13,12 @@ const routes = [
     redirect: '/home',
     children: [
       {
-        path: '/home',
+        path: 'home',
         component: () => import('@/views/home/Home')
+      },
+      {
+        path: 'user-info',
+        component: () => import('@/views/user/UserInfo')
       }
     ]
   },
