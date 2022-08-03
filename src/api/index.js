@@ -59,3 +59,59 @@ export const getMenusListAPI = () => {
   })
 }
 
+/**
+ * 更新用户信息
+ * @param id
+ * @param username
+ * @param nickname
+ * @param email
+ * @param user_pic
+ * @returns {AxiosPromise}
+ */
+export const updateUserInfoAPI = ({id, username, nickname, email, user_pic}) => {
+  return request({
+    url: '/my/userinfo',
+    method: 'PUT',
+    data: {
+      id,
+      username,
+      nickname,
+      email,
+      user_pic
+    }
+  })
+}
+
+/**
+ * 更新用户头像
+ * @param avatar
+ * @returns {AxiosPromise}
+ */
+export const updateUserAvatarAPI = (avatar) => {
+  return request({
+    url: '/my/update/avatar',
+    method: 'PATCH',
+    data: {
+      avatar
+    }
+  })
+}
+
+/**
+ *
+ * @param old_pwd
+ * @param new_pwd
+ * @param re_pwd
+ * @returns {AxiosPromise}
+ */
+export const updatePwdAPI = ({ old_pwd, new_pwd, re_pwd }) => {
+  return request({
+    url: '/my/updatepwd',
+    method: 'PATCH',
+    data: {
+      old_pwd,
+      new_pwd,
+      re_pwd
+    }
+  })
+}

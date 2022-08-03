@@ -25,13 +25,14 @@
       </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="submit">提交修改</el-button>
-        <el-button>重置</el-button>
+        <el-button @click="resetUserInfo">重置</el-button>
       </el-form-item>
     </el-form>
   </el-card>
 </template>
 
 <script>
+  import {updateUserInfoAPI} from '@/api'
   export default {
     name: 'UserInfo',
     data () {
@@ -71,9 +72,27 @@
       }
     },
     methods: {
+      // 提交修改
       submit() {
-
-      }
+        this.$refs.userFormRef.validate(async valid => {
+          if(valid) {
+            // 需要传id
+            this.userForm.id = this.$store.state.userInfo.id
+            const { data : res } = await updateUserInfoAPI(this.userForm)
+            if(res.code !== 0) {
+              return this.$message.error('更新用户信息失败!')
+            }
+            this.$message.success('更新用户信息成功')
+            this.$store.dispatch('getUserInfoActions')
+            console.log(res)
+          } else {
+            return false
+          }
+        })
+      },
+      resetUserInfo() {
+        this.$refs.userFormRef.resetFields()
+      },
     }
   }
 </script>

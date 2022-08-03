@@ -19,6 +19,14 @@ const routes = [
       {
         path: 'user-info',
         component: () => import('@/views/user/UserInfo')
+      },
+      {
+        path: 'user-avatar',
+        component: () => import('@/views/user/UserAvatar')
+      },
+      {
+        path: 'user-pwd',
+        component: () => import('@/views/user/UserChangePwd')
       }
     ]
   },
