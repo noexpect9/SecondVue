@@ -115,3 +115,50 @@ export const updatePwdAPI = ({ old_pwd, new_pwd, re_pwd }) => {
     }
   })
 }
+
+/**
+ * 获取文章列表
+ * @returns {AxiosPromise}
+ */
+export const getArtCateListAPI = () => {
+  return request({
+    url: '/my/cate/list',
+
+  })
+}
+
+/**
+ * 添加分类
+ * @param cate_name
+ * @param cate_alias
+ * @returns {AxiosPromise}
+ */
+export const  addArtCateAPI = ({ cate_name, cate_alias }) => {
+  return request({
+    url: '/my/cate/add',
+    method: 'POST',
+    data: {
+      cate_name,
+      cate_alias
+    }
+  })
+}
+
+/**
+ * 修改文章分类
+ * @param id
+ * @param cate_name
+ * @param cate_alias
+ * @returns {AxiosPromise}
+ */
+export const editArtCateAPI = ({ id, cate_name, cate_alias }) => {
+  return request({
+    url: '/my/cate/info',
+    method: 'PUT',
+    data: {
+      id,
+      cate_name,
+      cate_alias
+    }
+  })
+}

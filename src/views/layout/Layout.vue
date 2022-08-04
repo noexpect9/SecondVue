@@ -16,7 +16,7 @@
         <el-submenu index="1">
           <template slot="title">
             <!-- 头像 -->
-            <img src="../../assets/images/logo.png" alt="" class="avatar"/>
+            <img :src="user_pic" alt="" class="avatar"/>
             <span>个人中心</span>
           </template>
           <el-menu-item index="1-1"><i class="el-icon-s-operation"></i>基本资料</el-menu-item>

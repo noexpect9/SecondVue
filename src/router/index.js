@@ -9,7 +9,7 @@ const routes = [
   {
     path: '/',
     //redirect: '/login'
-    component: () => import('@/views/layout'),
+    component: () => import('@/views/layout/Layout'),
     redirect: '/home',
     children: [
       {
@@ -27,20 +27,24 @@ const routes = [
       {
         path: 'user-pwd',
         component: () => import('@/views/user/UserChangePwd')
+      },
+      {
+        path: 'art-cate',
+        component: () => import('@/views/article/ArtCate')
       }
     ]
   },
   {
     path: '/reg',
-    component: () => import('@/views/register') //路由懒加载
+    component: () => import('@/views/register/Register') //路由懒加载
   },
   {
     path: '/login',
-    component: () => import('@/views/login')
+    component: () => import('@/views/login/Login')
   },
   {
     path: '/home',
-    component: () => import('@/views/layout')
+    component: () => import('@/views/layout/Layout')
   }
 ]
 
