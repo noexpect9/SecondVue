@@ -68,7 +68,7 @@ export const getMenusListAPI = () => {
  * @param user_pic
  * @returns {AxiosPromise}
  */
-export const updateUserInfoAPI = ({id, username, nickname, email, user_pic}) => {
+export const updateUserInfoAPI = ({ id, username, nickname, email, user_pic }) => {
   return request({
     url: '/my/userinfo',
     method: 'PUT',
@@ -123,7 +123,6 @@ export const updatePwdAPI = ({ old_pwd, new_pwd, re_pwd }) => {
 export const getArtCateListAPI = () => {
   return request({
     url: '/my/cate/list',
-
   })
 }
 
@@ -133,7 +132,7 @@ export const getArtCateListAPI = () => {
  * @param cate_alias
  * @returns {AxiosPromise}
  */
-export const  addArtCateAPI = ({ cate_name, cate_alias }) => {
+export const addArtCateAPI = ({ cate_name, cate_alias }) => {
   return request({
     url: '/my/cate/add',
     method: 'POST',
@@ -162,3 +161,19 @@ export const editArtCateAPI = ({ id, cate_name, cate_alias }) => {
     }
   })
 }
+
+/**
+ *
+ * @param id
+ * @returns {AxiosPromise}
+ */
+export const delArtCateAPI = (id) => {
+  return request({
+    url: '/my/cate/del',
+    method: 'DELETE',
+    params: {
+      id
+    }
+  })
+}
+

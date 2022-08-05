@@ -47,7 +47,7 @@
 </template>
 
 <script>
-  // echarts内部用的是命名到处export
+  // echarts内部用的是命名导出export
   import * as echarts from 'echarts'
 
   export default {
@@ -65,36 +65,36 @@
         // 绘制面积图表
         // 数据源(模拟后台返回的数据)
         const aListAll = [
-          { count: 36, date: '2019-04-13' },
-          { count: 52, date: '2019-04-14' },
-          { count: 78, date: '2019-04-15' },
-          { count: 85, date: '2019-04-16' },
-          { count: 65, date: '2019-04-17' },
-          { count: 72, date: '2019-04-18' },
-          { count: 88, date: '2019-04-19' },
-          { count: 64, date: '2019-04-20' },
-          { count: 72, date: '2019-04-21' },
-          { count: 90, date: '2019-04-22' },
-          { count: 96, date: '2019-04-23' },
-          { count: 100, date: '2019-04-24' },
-          { count: 102, date: '2019-04-25' },
-          { count: 110, date: '2019-04-26' },
-          { count: 123, date: '2019-04-27' },
-          { count: 100, date: '2019-04-28' },
-          { count: 132, date: '2019-04-29' },
-          { count: 146, date: '2019-04-30' },
-          { count: 200, date: '2019-05-01' },
-          { count: 180, date: '2019-05-02' },
-          { count: 163, date: '2019-05-03' },
-          { count: 110, date: '2019-05-04' },
-          { count: 80, date: '2019-05-05' },
-          { count: 82, date: '2019-05-06' },
-          { count: 70, date: '2019-05-07' },
-          { count: 65, date: '2019-05-08' },
-          { count: 54, date: '2019-05-09' },
-          { count: 40, date: '2019-05-10' },
-          { count: 45, date: '2019-05-11' },
-          { count: 38, date: '2019-05-12' }
+          { count: 36, date: '2022-04-13' },
+          { count: 52, date: '2022-04-14' },
+          { count: 78, date: '2022-04-15' },
+          { count: 85, date: '2022-04-16' },
+          { count: 65, date: '2022-04-17' },
+          { count: 72, date: '2022-04-18' },
+          { count: 88, date: '2022-04-19' },
+          { count: 64, date: '2022-04-20' },
+          { count: 72, date: '2022-04-21' },
+          { count: 90, date: '2022-04-22' },
+          { count: 96, date: '2022-04-23' },
+          { count: 100, date: '2022-04-24' },
+          { count: 102, date: '2022-04-25' },
+          { count: 110, date: '2022-04-26' },
+          { count: 123, date: '2022-04-27' },
+          { count: 100, date: '2022-04-28' },
+          { count: 132, date: '2022-04-29' },
+          { count: 146, date: '2022-04-30' },
+          { count: 200, date: '2022-05-01' },
+          { count: 180, date: '2022-05-02' },
+          { count: 163, date: '2022-05-03' },
+          { count: 110, date: '2022-05-04' },
+          { count: 80, date: '2022-05-05' },
+          { count: 82, date: '2022-05-06' },
+          { count: 70, date: '2022-05-07' },
+          { count: 65, date: '2022-05-08' },
+          { count: 54, date: '2022-05-09' },
+          { count: 40, date: '2022-05-10' },
+          { count: 45, date: '2022-05-11' },
+          { count: 38, date: '2022-05-12' }
         ]
 
         // 但是图标要求直接给数字的值, 所以要把对象的值取出来形成2个只有值的数组
@@ -418,4 +418,5 @@
     border: 1px solid #e7e7e9;
     background-color: #fff !important;
   }
+
 </style>

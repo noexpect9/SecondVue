@@ -12,6 +12,7 @@
         background-color="#23262E"
         text-color="#fff"
         active-text-color="#409EFF" logo
+        style="border-right-width: 0"
       >
         <el-submenu index="1">
           <template slot="title">
@@ -143,6 +144,12 @@
       overflow-y: scroll;
       background-color: #F2F2F2;
     }
+    // 解决侧边栏少一像素
+    .el-menu {
+      border: none;
+      border-right-width: 0;
+    }
+
   }
 
   .avatar {

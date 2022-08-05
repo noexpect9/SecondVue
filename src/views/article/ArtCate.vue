@@ -12,7 +12,7 @@
         <el-table-column label="操作">
           <template v-slot="scope">
             <el-button type="primary" size="mini" @click="editCate(scope.row)">修改</el-button>
-            <el-button type="danger" size="mini">删除</el-button>
+            <el-button type="danger" size="mini" @click="delCate(scope.row.id)">删除</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -41,6 +41,7 @@
   import { getArtCateListAPI } from '@/api'
   import { addArtCateAPI } from '@/api'
   import { editArtCateAPI } from '@/api'
+  import { delArtCateAPI } from '@/api'
 
   export default {
     name: 'ArtCate',
@@ -129,6 +130,15 @@
         this.addVisible = true
         this.addForm.cate_name = cateObj.cate_name
         this.addForm.cate_alias = cateObj.cate_alias
+      },
+      async delCate(id) {
+        const { data: res } = await delArtCateAPI(id)
+        console.log(res)
+        if( res.code !==0 ) {
+          return this.$message.error('删除失败')
+        }
+        this.$message.success('删除成功')
+        this.getArtCateList()
       }
 
     }
