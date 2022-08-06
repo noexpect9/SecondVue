@@ -57,7 +57,7 @@ const router = new VueRouter({
 })
 
 // 白名单 无需登陆可以访问的路由地址
-let whiteList = ['/login','/red']
+let whiteList = ['/login','/reg']
 
 // 全局路由守卫
 router.beforeEach((to, from, next) => {

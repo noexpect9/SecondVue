@@ -34,7 +34,8 @@
       <!-- 分页区域 -->
 
       <!-- 发表文章的 Dialog 对话框 -->
-      <el-dialog title="发表文章" :visible.sync="pubDialogVisible" fullscreen :before-close="handleClose">
+      <el-dialog title="发表文章" :visible.sync="pubDialogVisible" fullscreen :before-close="handleClose"
+                 @change="offDialog">
         <el-form :model="pubForm" :rules="pubFormRules" ref="pubFormRef" label-width="100px">
           <el-form-item label="文章标题" prop="title">
             <el-input type="text" v-model="pubForm.title" placeholder="请输入标题"></el-input>
@@ -53,8 +54,12 @@
             <img src="../../assets/images/cover.jpg" alt="" class="cover-img" ref="imgRef"/>
             <br/>
             <!-- 文件选择框 默认隐藏 -->
-            <el-input type="file" style="display: none" accept="iamge/*" ref="iptFileRef"/>
-              <el-button type="text">+ 选择封面</el-button>
+            <input type="file" style="display: none" accept="image/*" ref="iptFileRef" @change="onCoverChange"/>
+            <el-button type="text" @click="showImgFile">+ 选择封面</el-button>
+          </el-form-item>
+          <el-form-item>
+            <el-button type="primary" @click="pubArtcle('已发布')">发布</el-button>
+            <el-button type="info" @click="pubArtcle('暂存草稿')">存为草稿</el-button>
           </el-form-item>
         </el-form>
       </el-dialog>
@@ -64,6 +69,7 @@
 
 <script>
   import { getArtCateListAPI } from '@/api'
+  import defaultImg from '@/assets/images/cover.jpg'
 
   export default {
     name: 'ArtList',
@@ -80,7 +86,9 @@
         pubForm: { // 表单的数据对象
           title: '',
           cate_id: '',
-          content: '' // 文章的内容
+          content: '', // 文章的内容
+          cover_img: null,
+          state: '',
         },
         pubFormRules: { // 表单的验证规则对象
           title: [
@@ -134,7 +142,38 @@
         if (res.code === 0) {
           this.cateList = res.data
         }
-      }
+      },
+      showImgFile () {
+        this.$refs.iptFileRef.click()
+      },
+      // 封面选择改变的事件
+      onCoverChange (e) {
+        // 获取用户选择的文件
+        const files = e.target.files
+        if (files.length === 0) {
+          // 用户没有选择封面
+          this.pubForm.cover_img = null
+          this.$refs.imgRef.setAttribute('src', defaultImg)
+        } else {
+          // 用户选择了封面
+          this.pubForm.cover_img = files[0]
+          const url = URL.createObjectURL(files[0])
+          this.$refs.imgRef.setAttribute('src', url)
+        }
+      },
+      pubArtcle (state) {
+        this.pubForm.state = state
+        this.$refs.pubFormRef.validate(valid => {
+          // 判断文章内容
+          if (!valid) return this.$message.error('请填写文章信息')
+          // 判断文章封面
+          if (!this.pubForm.cover_img) return this.$message.error('请上传文章封面')
+          console.log(this.pubForm)
+        })
+      },
+      offDialog() {
+
+      },
     },
     created () {
       this.getArtCateList()
