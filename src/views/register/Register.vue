@@ -85,14 +85,14 @@
 
 <style lang="less" scoped>
   .reg-container {
-    background: url("../../assets/images/login_bg.jpg") center;
+    background: url("../../assets/images/2.png") center;
     background-size: cover;
     height: 100%;
 
     .reg-box {
       width: 400px;
       height: 335px;
-      background-color: #fff;
+      background: rgba(105,105,105,.3);
       border-radius: 3px;
       position: absolute;
       left: 50%;
