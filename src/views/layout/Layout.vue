@@ -113,7 +113,6 @@
       },
       async getMenusList () {
         const { data: res } = await getMenusListAPI()
-        console.log(res)
         this.menusList = res.data
       },
     },

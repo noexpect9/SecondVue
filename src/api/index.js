@@ -177,3 +177,55 @@ export const delArtCateAPI = (id) => {
   })
 }
 
+/**
+ *
+ * @param fd
+ * @returns {AxiosPromise}
+ */
+export const addArticleAPI = (fd) => {
+  return request({
+    url: '/my/article/add',
+    method: 'POST',
+    // 如果是一个普通对象 axios会把它转换成JSON字符串 传给后台 要求为一个FormData类型
+    data: fd
+  })
+}
+
+/**
+ *
+ * @param pagenum
+ * @param pagesize
+ * @param cate_id
+ * @param state
+ * @returns {AxiosPromise}
+ */
+export const getArticleListAPI = ({ pagenum, pagesize, cate_id, state }) => {
+  return request({
+    url: '/my/article/list',
+    params: {
+      pagenum, pagesize, cate_id, state
+    }
+  })
+}
+
+/**
+ *
+ * @param id
+ * @returns {AxiosPromise}
+ */
+export const getArticleDetailsAPI = (id) => {
+  return request({
+    url: '/my/article/info',
+    params: { id }
+  })
+}
+
+export const delArticleAPI = (id) => {
+  return request({
+    url: '/my/article/info',
+    method: 'DELETE',
+    params: {
+      id
+    }
+  })
+}

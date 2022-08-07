@@ -2,9 +2,11 @@
 import axios from 'axios'
 import store from '@/store'
 import router from '@/router'
+// 导出基地址
+export const baseURL = 'http://big-event-vue-api-t.itheima.net'
 // 请求myAxios
 const $http = axios.create({
-  baseURL: 'http://big-event-vue-api-t.itheima.net/'
+  baseURL
 })
 
 // 定义请求拦截器

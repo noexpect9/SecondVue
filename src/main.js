@@ -11,8 +11,13 @@ import router from './router'
 import store from './store'
 import '@/assets/global.less'
 import '@/elementUI/index'
+import dayjs from 'dayjs'
 
 Vue.config.productionTip = false
+
+Vue.prototype.$formatData = (date) => {
+  return dayjs(date).format('YYYY-MM-DD:mm:ss')
+}
 
 // 全局注册富文本编辑器
 Vue.use(VueQuillEditor)
